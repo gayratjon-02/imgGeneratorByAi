@@ -11,6 +11,7 @@ import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
 import { AuthGuard } from '../auth/guards';
 import { UploadService } from './upload.service';
 import { multerConfig } from './config/multer.config';
+type MulterFile = Express.Multer.File;
 
 @Controller('upload')
 @UseGuards(AuthGuard)
@@ -20,7 +21,7 @@ export class UploadController {
   @Post('single')
   @UseInterceptors(FileInterceptor('file', multerConfig))
   async uploadSingle(
-    @UploadedFile() file: Express.Multer.File | undefined,
+    @UploadedFile() file: MulterFile | undefined,
   ): Promise<{ url: string }> {
     if (!file) {
       throw new BadRequestException('File is required');
@@ -34,7 +35,7 @@ export class UploadController {
   @Post('multiple')
   @UseInterceptors(FilesInterceptor('files', 10, multerConfig))
   async uploadMultiple(
-    @UploadedFiles() files: Express.Multer.File[] | undefined,
+    @UploadedFiles() files: MulterFile[] | undefined,
   ): Promise<{ urls: string[] }> {
     if (!files || files.length === 0) {
       throw new BadRequestException('Files are required');
@@ -48,7 +49,7 @@ export class UploadController {
   @Post('product-images')
   @UseInterceptors(FilesInterceptor('images', 2, multerConfig))
   async uploadProductImages(
-    @UploadedFiles() files: Express.Multer.File[] | undefined,
+    @UploadedFiles() files: MulterFile[] | undefined,
   ): Promise<{ frontImageUrl: string; backImageUrl: string }> {
     if (!files || files.length !== 2) {
       throw new BadRequestException('Exactly 2 images required (front and back)');

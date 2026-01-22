@@ -19,6 +19,8 @@ import { ProductsService } from './products.service';
 import { CreateProductDto } from '../../libs/dto/create-product.dto';
 import { multerConfig } from '../upload/config/multer.config';
 
+type MulterFile = Express.Multer.File;
+
 @Controller('products')
 @UseGuards(AuthGuard)
 export class ProductsController {
@@ -28,7 +30,7 @@ export class ProductsController {
   @UseInterceptors(FilesInterceptor('images', 2, multerConfig))
   async create(
     @Body() createProductDto: CreateProductDto,
-    @UploadedFiles() files: Express.Multer.File[] | undefined,
+    @UploadedFiles() files: MulterFile[] | undefined,
     @GetAuthMember() authMember: any,
   ) {
     if (!files || files.length !== 2) {

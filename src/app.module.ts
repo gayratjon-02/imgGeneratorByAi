@@ -5,6 +5,7 @@ import { AuthModule } from './components/auth/auth.module';
 import { DatabaseModule } from './components/database/database.module';
 import { UploadModule } from './components/upload/upload.module';
 import { ProductsModule } from './components/products/products.module';
+import { GeminiModule } from './components/gemini/gemini.module';
 
 @Module({
   imports: [
@@ -12,6 +13,7 @@ import { ProductsModule } from './components/products/products.module';
     AuthModule,
     UploadModule,
     ProductsModule,
+    GeminiModule,
   ],
   controllers: [AppController],
   providers: [AppService],

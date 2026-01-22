@@ -3,12 +3,14 @@ import { existsSync, mkdirSync } from 'fs';
 import { join } from 'path';
 import { getSerialForImage, validateFileType, validateFileSize } from '../../libs/utils';
 
+type MulterFile = Express.Multer.File;
+
 @Injectable()
 export class UploadService {
   private readonly uploadsDir = 'uploads';
 
   async uploadFile(
-    file: Express.Multer.File | undefined,
+    file: MulterFile | undefined,
     target: string,
   ): Promise<string> {
     if (!file) {
@@ -45,7 +47,7 @@ export class UploadService {
   }
 
   async uploadMultipleFiles(
-    files: Express.Multer.File[] | undefined,
+    files: MulterFile[] | undefined,
     target: string,
   ): Promise<string[]> {
     if (!files || files.length === 0) {
