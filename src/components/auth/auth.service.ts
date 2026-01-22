@@ -37,6 +37,7 @@ export class AuthService {
       _id: member._id.toString(),
       email: member.email,
       name: member.name,
+      role: member.role || 'USER',
     };
     return this.jwtService.signAsync(payload);
   }
