@@ -3,9 +3,16 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './components/auth/auth.module';
 import { DatabaseModule } from './components/database/database.module';
+import { UploadModule } from './components/upload/upload.module';
+import { ProductsModule } from './components/products/products.module';
 
 @Module({
-  imports: [DatabaseModule, AuthModule],
+  imports: [
+    DatabaseModule,
+    AuthModule,
+    UploadModule,
+    ProductsModule,
+  ],
   controllers: [AppController],
   providers: [AppService],
 })
